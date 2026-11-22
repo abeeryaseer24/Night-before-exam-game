@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Night Before Exam</title>
-  <meta name="description" content="It's 9 PM. Your Physics final is at 9 AM. You've read nothing. Survive the night." />
+  <meta name="description" content="It's 9 PM. Your exam is at 9 AM. You've read nothing. SSC, HSC or university finals — survive the night." />
   <meta name="theme-color" content="#0a0f24" />
   <meta property="og:title" content="Night Before Exam — পরীক্ষার আগের রাত" />
-  <meta property="og:description" content="It's 9 PM. Exam at 9 AM. Zero preparation. Cha, load shedding, fake suggestions. Can you get an A+?" />
+  <meta property="og:description" content="9 PM. Exam at 9 AM. Zero preparation. Cha, load shedding, fake suggestions. SSC, HSC, EEE, CSE, ME. Can you survive the night?" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,17 +26,28 @@
         <h1 class="logo">Night Before<br /><span>Exam</span></h1>
         <p class="bn">পরীক্ষার আগের রাত</p>
         <div class="title-note">
-          <p>It's <b>9:00 PM</b>. Your <b>Physics final</b> is at <b>9:00 AM</b>.</p>
+          <p>It's <b>9:00 PM</b>. Your exam is at <b>9:00 AM</b>.</p>
           <p>You have read <b>absolutely nothing</b>.</p>
-          <p class="muted">Study, drink cha, dodge notifications, survive load shedding — and walk into that exam hall with something in your head.</p>
+          <p class="muted">SSC, HSC or a university final. Study, drink cha, dodge notifications, survive load shedding, and walk into that exam hall with <i>something</i> in your head.</p>
         </div>
         <div class="title-actions">
-          <button id="btn-start" class="btn btn-primary btn-lg">Open the books</button>
+          <button id="btn-start" class="btn btn-primary btn-lg">Choose your exam</button>
           <button id="btn-how" class="btn btn-ghost">How to play</button>
         </div>
         <p id="best-score" class="best"></p>
       </div>
       <button class="mute-btn" data-mute aria-label="Toggle sound">🔊</button>
+    </section>
+
+    <!-- ============ LEVEL SELECT ============ -->
+    <section id="screen-level" class="screen" aria-label="Choose your exam">
+      <div class="level-wrap">
+        <button id="btn-level-back" class="back-btn" aria-label="Back">← Back</button>
+        <p class="eyebrow" id="level-eyebrow">Step 1 of 2</p>
+        <h2 class="level-title" id="level-title">Which exam is tomorrow?</h2>
+        <p class="muted level-sub" id="level-sub">Pick your suffering.</p>
+        <div id="level-grid" class="level-grid"></div>
+      </div>
     </section>
 
     <!-- ============ GAME ============ -->
@@ -64,6 +75,11 @@
           </div>
         </div>
         <button class="mute-btn inline" data-mute aria-label="Toggle sound">🔊</button>
+        <div class="timeline" aria-hidden="true">
+          <div class="tl-track"><div id="tl-fill" class="tl-fill"></div></div>
+          <div id="tl-marker" class="tl-marker">🌙</div>
+          <span class="tl-l">9 PM</span><span class="tl-m">3 AM</span><span class="tl-r">9 AM 📝</span>
+        </div>
       </header>
 
       <div class="layout">
@@ -79,14 +95,32 @@
               <div class="window-frame"></div>
               <div id="rain" class="rain"></div>
             </div>
-            <div class="wall-poster">
-              <span>F = ma</span>
-              <small>(probably)</small>
-            </div>
-            <div class="routine">
-              <b>EXAM</b><br />Physics<br />9:00 AM<br /><span>Room 304</span>
+            <div class="wall-poster"><span id="poster-main">F = ma</span><small id="poster-sub">(probably)</small></div>
+            <div class="routine" id="routine"></div>
+            <div class="bunk" aria-hidden="true">
+              <div class="bunk-bed top"><div class="roommate"><span>z</span><span>z</span><span>Z</span></div></div>
+              <div class="bunk-bed bottom"></div>
             </div>
             <div class="lamp-glow"></div>
+
+            <!-- the student -->
+            <div id="student" class="student st-idle" aria-hidden="true">
+              <div class="s-chair"></div>
+              <div class="s-body"><div class="s-collar"></div></div>
+              <div class="s-head">
+                <div class="s-hair"></div>
+                <div class="s-eyes"><i></i><i></i></div>
+                <div class="s-bags"><i></i><i></i></div>
+                <div class="s-blush"><i></i><i></i></div>
+                <div class="s-mouth"></div>
+                <div class="s-sweat">💧</div>
+              </div>
+              <div class="s-prop" id="s-prop"></div>
+              <div class="s-zzz"><span>z</span><span>z</span><span>Z</span></div>
+              <div id="bubble" class="bubble"></div>
+            </div>
+            <div id="away-sign" class="away-sign"></div>
+
             <div class="desk">
               <div class="lamp"><div class="lamp-head"></div><div class="lamp-arm"></div><div class="lamp-base"></div></div>
               <div class="books">
@@ -96,13 +130,18 @@
               <div id="cups" class="cups"></div>
               <div class="phone-obj"><div class="phone-screen"></div></div>
               <div class="candle"><div class="flame"></div></div>
+              <div id="bag" class="bag" title="Exam bag">🎒</div>
             </div>
             <div class="dark-overlay"></div>
+            <div id="activity" class="activity">
+              <span id="activity-ico" class="activity-ico"></span>
+              <div><b id="activity-txt"></b><div class="activity-bar"><i id="activity-fill"></i></div></div>
+            </div>
             <div id="room-status" class="room-status"></div>
           </div>
 
           <div class="chapters">
-            <h3>Syllabus <small>— Physics Final</small></h3>
+            <h3>Syllabus <small id="syllabus-sub">— Physics</small></h3>
             <ul id="chapter-list"></ul>
           </div>
         </div>
@@ -112,7 +151,13 @@
             <h3>What now?</h3>
             <span id="mood" class="mood"></span>
           </div>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="study" role="tab">📚 Study</button>
+            <button class="tab" data-tab="recharge" role="tab">⚡ Recharge</button>
+            <button class="tab" data-tab="life" role="tab">🎲 Life</button>
+          </div>
           <div id="actions" class="actions"></div>
+          <div id="actions-main" class="actions actions-main"></div>
           <div class="diary">
             <h3>Tonight's diary</h3>
             <ol id="log"></ol>
@@ -123,36 +168,59 @@
 
     <!-- ============ EXAM ============ -->
     <section id="screen-exam" class="screen" aria-label="Exam">
-      <div class="exam-paper">
-        <div class="exam-head">
-          <div>
-            <p class="exam-school">Final Examination</p>
-            <h2>Physics</h2>
+      <div class="exam-wrap">
+        <div class="hall-strip" aria-hidden="true">
+          <div class="hall-desks">
+            <span>🧑‍🎓</span><span>👩‍🎓</span><span class="you">🫠<em>you</em></span><span>🧑‍🎓</span><span>👨‍🎓</span><span>👩‍🎓</span>
           </div>
-          <div class="exam-meta">
-            <span id="exam-q">Q 1 / 10</span>
-            <span id="exam-score" class="muted">—</span>
+          <div id="invigilator" class="invigilator">🧑‍🏫</div>
+          <div id="whisper" class="whisper"></div>
+        </div>
+        <div class="exam-paper">
+          <div class="exam-head">
+            <div>
+              <p class="exam-school" id="exam-school">Final Examination</p>
+              <h2 id="exam-subject">Physics</h2>
+            </div>
+            <div class="exam-meta">
+              <span id="exam-q">Q 1 / 10</span>
+              <span id="exam-score" class="muted">—</span>
+            </div>
+          </div>
+          <div id="exam-banner" class="exam-banner"></div>
+          <div id="exam-mcq">
+            <div class="exam-timer"><div id="exam-timer-fill"></div></div>
+            <p id="exam-chapter" class="exam-chapter"></p>
+            <h3 id="exam-question" class="exam-question"></h3>
+            <div id="exam-options" class="exam-options"></div>
+            <p id="exam-hint" class="exam-hint"></p>
+          </div>
+          <div id="exam-written" class="exam-written hidden">
+            <p class="exam-chapter">Part B · Written · 30 marks</p>
+            <h3 class="exam-question" id="written-q">Explain everything you know. Show your work.</h3>
+            <p class="written-note" id="written-note">You have 40 minutes and a pen that's almost out of ink. Choose your strategy:</p>
+            <div id="written-options" class="written-options"></div>
+            <div id="written-scribble" class="scribble hidden"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p id="written-result" class="exam-hint"></p>
+            <button id="btn-submit" class="btn btn-ink hidden">Submit answer script ✍️</button>
           </div>
         </div>
-        <div class="exam-timer"><div id="exam-timer-fill"></div></div>
-        <p id="exam-chapter" class="exam-chapter"></p>
-        <h3 id="exam-question" class="exam-question"></h3>
-        <div id="exam-options" class="exam-options"></div>
-        <p id="exam-hint" class="exam-hint"></p>
       </div>
     </section>
 
     <!-- ============ RESULT ============ -->
     <section id="screen-result" class="screen" aria-label="Result">
       <div class="result-card">
-        <p class="eyebrow">Result published</p>
+        <p class="eyebrow" id="result-eyebrow">Result published</p>
         <div id="grade" class="grade">A+</div>
-        <p id="result-marks" class="result-marks"></p>
+        <p id="result-gpa" class="result-gpa"></p>
+        <div id="result-breakdown" class="breakdown"></div>
         <p id="result-epilogue" class="result-epilogue"></p>
         <div id="result-stats" class="result-stats"></div>
         <div id="achievements" class="achievements"></div>
         <div class="title-actions">
           <button id="btn-again" class="btn btn-primary btn-lg">Relive the night</button>
+          <button id="btn-other" class="btn btn-ghost">Other exam</button>
           <button id="btn-share" class="btn btn-ghost">Share result</button>
         </div>
       </div>
@@ -181,16 +249,17 @@
     <div id="focus-page" class="focus-page">
       <div id="focus-text" class="focus-text"></div>
       <div class="focus-instr" id="focus-instr">
-        <b>Hold</b> on the page (or hold <kbd>Space</kbd>) to read.<br />
-        Swipe away notifications. Tap <span class="gold">golden words</span> for bonus.
+        <b>Hold</b> the page (or hold <kbd>Space</kbd>) to read.<br />
+        Tap notifications away. Tap <span class="gold">golden words</span> for a bonus.
       </div>
     </div>
     <div id="focus-layer" class="focus-layer"></div>
-    <div id="drowsy" class="drowsy"><button id="btn-wake" class="btn btn-primary">💦 Splash water on face!</button></div>
+    <div id="drowsy" class="drowsy"><button id="btn-wake" class="btn btn-primary">💦 Splash water on your face!</button></div>
   </div>
 
   <div id="toast" class="toast" aria-live="polite"></div>
 
+  <script src="data.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
