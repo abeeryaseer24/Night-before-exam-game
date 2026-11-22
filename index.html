@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Night Before Exam</title>
   <meta name="description" content="It's 9 PM. Your exam is at 9 AM. You've read nothing. SSC, HSC or university finals — survive the night." />
-  <meta name="theme-color" content="#0a0f24" />
+  <meta name="theme-color" content="#1e2b8e" />
   <meta property="og:title" content="Night Before Exam — পরীক্ষার আগের রাত" />
   <meta property="og:description" content="9 PM. Exam at 9 AM. Zero preparation. Cha, load shedding, fake suggestions. SSC, HSC, EEE, CSE, ME. Can you survive the night?" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@500;700&family=Hind+Siliguri:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@700;900&family=Kalam:wght@400;700&family=Tiro+Bangla&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,16 +20,23 @@
 
     <!-- ============ TITLE ============ -->
     <section id="screen-title" class="screen active" aria-label="Title">
-      <div class="title-sky" aria-hidden="true"><div class="stars"></div><div class="title-moon"></div></div>
-      <div class="title-card">
-        <p class="eyebrow">A one-night survival game</p>
-        <h1 class="logo">Night Before<br /><span>Exam</span></h1>
+      <div class="admit">
+        <header class="admit-head">
+          <div>
+            <p class="admit-board">Board of Last-Minute Education</p>
+            <p class="admit-kind">Admit card</p>
+          </div>
+          <div class="admit-photo" aria-hidden="true"><span>🫠</span><small>Photo</small></div>
+        </header>
+        <h1 class="logo">Night Before Exam</h1>
         <p class="bn">পরীক্ষার আগের রাত</p>
-        <div class="title-note">
-          <p>It's <b>9:00 PM</b>. Your exam is at <b>9:00 AM</b>.</p>
-          <p>You have read <b>absolutely nothing</b>.</p>
-          <p class="muted">SSC, HSC or a university final. Study, drink cha, dodge notifications, survive load shedding, and walk into that exam hall with <i>something</i> in your head.</p>
-        </div>
+        <dl class="admit-fields">
+          <div><dt>Time now</dt><dd>9:00 PM</dd></div>
+          <div><dt>Exam starts</dt><dd>9:00 AM sharp</dd></div>
+          <div><dt>Chapters read</dt><dd>0 (zero)</dd></div>
+          <div><dt>Exam centre</dt><dd>Your desk, then the hall</dd></div>
+        </dl>
+        <p class="admit-instr">SSC, HSC or a university final. Study, drink cha, dodge notifications, survive load shedding, and walk into that exam hall with something in your head.</p>
         <div class="title-actions">
           <button id="btn-start" class="btn btn-primary btn-lg">Choose your exam</button>
           <button id="btn-how" class="btn btn-ghost">How to play</button>
