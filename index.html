@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Night Before Exam</title>
+  <meta name="description" content="It's 9 PM. Your Physics final is at 9 AM. You've read nothing. Survive the night." />
+  <meta name="theme-color" content="#0a0f24" />
+  <meta property="og:title" content="Night Before Exam — পরীক্ষার আগের রাত" />
+  <meta property="og:description" content="It's 9 PM. Exam at 9 AM. Zero preparation. Cha, load shedding, fake suggestions. Can you get an A+?" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@500;700&family=Hind+Siliguri:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============ TITLE ============ -->
+    <section id="screen-title" class="screen active" aria-label="Title">
+      <div class="title-sky" aria-hidden="true"><div class="stars"></div><div class="title-moon"></div></div>
+      <div class="title-card">
+        <p class="eyebrow">A one-night survival game</p>
+        <h1 class="logo">Night Before<br /><span>Exam</span></h1>
+        <p class="bn">পরীক্ষার আগের রাত</p>
+        <div class="title-note">
+          <p>It's <b>9:00 PM</b>. Your <b>Physics final</b> is at <b>9:00 AM</b>.</p>
+          <p>You have read <b>absolutely nothing</b>.</p>
+          <p class="muted">Study, drink cha, dodge notifications, survive load shedding — and walk into that exam hall with something in your head.</p>
+        </div>
+        <div class="title-actions">
+          <button id="btn-start" class="btn btn-primary btn-lg">Open the books</button>
+          <button id="btn-how" class="btn btn-ghost">How to play</button>
+        </div>
+        <p id="best-score" class="best"></p>
+      </div>
+      <button class="mute-btn" data-mute aria-label="Toggle sound">🔊</button>
+    </section>
+
+    <!-- ============ GAME ============ -->
+    <section id="screen-game" class="screen" aria-label="The night">
+      <header class="hud">
+        <div class="clock-wrap">
+          <div id="clock" class="clock">21:00</div>
+          <div id="countdown" class="countdown">Exam in 12h 00m</div>
+        </div>
+        <div class="bars">
+          <div class="bar" data-stat="energy">
+            <span class="bar-label">⚡ Energy</span>
+            <div class="bar-track"><div class="bar-fill"></div></div>
+            <span class="bar-val">80</span>
+          </div>
+          <div class="bar" data-stat="stress">
+            <span class="bar-label">💢 Stress</span>
+            <div class="bar-track"><div class="bar-fill"></div></div>
+            <span class="bar-val">30</span>
+          </div>
+          <div class="bar" data-stat="know">
+            <span class="bar-label">🧠 Prepared</span>
+            <div class="bar-track"><div class="bar-fill"></div></div>
+            <span class="bar-val">0%</span>
+          </div>
+        </div>
+        <button class="mute-btn inline" data-mute aria-label="Toggle sound">🔊</button>
+      </header>
+
+      <div class="layout">
+        <div class="scene-col">
+          <div id="room" class="room">
+            <div class="window">
+              <div id="sky" class="sky">
+                <div class="stars"></div>
+                <div id="moon" class="moon"></div>
+                <div id="sun" class="sun"></div>
+                <div class="skyline"></div>
+              </div>
+              <div class="window-frame"></div>
+              <div id="rain" class="rain"></div>
+            </div>
+            <div class="wall-poster">
+              <span>F = ma</span>
+              <small>(probably)</small>
+            </div>
+            <div class="routine">
+              <b>EXAM</b><br />Physics<br />9:00 AM<br /><span>Room 304</span>
+            </div>
+            <div class="lamp-glow"></div>
+            <div class="desk">
+              <div class="lamp"><div class="lamp-head"></div><div class="lamp-arm"></div><div class="lamp-base"></div></div>
+              <div class="books">
+                <div class="book b1"></div><div class="book b2"></div><div class="book b3"></div>
+              </div>
+              <div class="open-book"><div class="page l"></div><div class="page r"></div></div>
+              <div id="cups" class="cups"></div>
+              <div class="phone-obj"><div class="phone-screen"></div></div>
+              <div class="candle"><div class="flame"></div></div>
+            </div>
+            <div class="dark-overlay"></div>
+            <div id="room-status" class="room-status"></div>
+          </div>
+
+          <div class="chapters">
+            <h3>Syllabus <small>— Physics Final</small></h3>
+            <ul id="chapter-list"></ul>
+          </div>
+        </div>
+
+        <div class="side-col">
+          <div class="actions-head">
+            <h3>What now?</h3>
+            <span id="mood" class="mood"></span>
+          </div>
+          <div id="actions" class="actions"></div>
+          <div class="diary">
+            <h3>Tonight's diary</h3>
+            <ol id="log"></ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXAM ============ -->
+    <section id="screen-exam" class="screen" aria-label="Exam">
+      <div class="exam-paper">
+        <div class="exam-head">
+          <div>
+            <p class="exam-school">Final Examination</p>
+            <h2>Physics</h2>
+          </div>
+          <div class="exam-meta">
+            <span id="exam-q">Q 1 / 10</span>
+            <span id="exam-score" class="muted">—</span>
+          </div>
+        </div>
+        <div class="exam-timer"><div id="exam-timer-fill"></div></div>
+        <p id="exam-chapter" class="exam-chapter"></p>
+        <h3 id="exam-question" class="exam-question"></h3>
+        <div id="exam-options" class="exam-options"></div>
+        <p id="exam-hint" class="exam-hint"></p>
+      </div>
+    </section>
+
+    <!-- ============ RESULT ============ -->
+    <section id="screen-result" class="screen" aria-label="Result">
+      <div class="result-card">
+        <p class="eyebrow">Result published</p>
+        <div id="grade" class="grade">A+</div>
+        <p id="result-marks" class="result-marks"></p>
+        <p id="result-epilogue" class="result-epilogue"></p>
+        <div id="result-stats" class="result-stats"></div>
+        <div id="achievements" class="achievements"></div>
+        <div class="title-actions">
+          <button id="btn-again" class="btn btn-primary btn-lg">Relive the night</button>
+          <button id="btn-share" class="btn btn-ghost">Share result</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ MODAL ============ -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div id="modal-icon" class="modal-icon"></div>
+      <h3 id="modal-title"></h3>
+      <div id="modal-body" class="modal-body"></div>
+      <div id="modal-choices" class="modal-choices"></div>
+    </div>
+  </div>
+
+  <!-- ============ FOCUS MINIGAME ============ -->
+  <div id="focus" class="focus hidden" aria-label="Study session">
+    <div class="focus-top">
+      <div>
+        <p class="eyebrow" id="focus-chapter">Chapter</p>
+        <div class="focus-progress"><div id="focus-fill"></div><span id="focus-pct">0%</span></div>
+      </div>
+      <div id="focus-time" class="focus-time">15</div>
+    </div>
+    <div id="focus-page" class="focus-page">
+      <div id="focus-text" class="focus-text"></div>
+      <div class="focus-instr" id="focus-instr">
+        <b>Hold</b> on the page (or hold <kbd>Space</kbd>) to read.<br />
+        Swipe away notifications. Tap <span class="gold">golden words</span> for bonus.
+      </div>
+    </div>
+    <div id="focus-layer" class="focus-layer"></div>
+    <div id="drowsy" class="drowsy"><button id="btn-wake" class="btn btn-primary">💦 Splash water on face!</button></div>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="game.js"></script>
+</body>
+</html>
